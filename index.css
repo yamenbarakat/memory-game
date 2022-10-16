@@ -1,0 +1,170 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  position: relative;
+}
+
+.intro-container {
+  width: 100%;
+  height: 100%;
+  background-color: rgba(5, 193, 245, 98%);
+  position: absolute;
+  z-index: 100;
+  display: flex;
+  justify-content: center;
+}
+
+.intro {
+  margin-top: 30px;
+  padding: 20px;
+  text-align: center;
+  width: 300px;
+}
+
+.intro p {
+  font-weight: bold;
+}
+
+.intro button {
+  width: 100px;
+  background-color: #333;
+  color: #05c1f5;
+  border: none;
+  border-radius: 4px;
+  padding: 5px;
+  cursor: pointer;
+}
+
+.container {
+  margin: auto;
+  width: 600px;
+}
+
+.info-container {
+  padding: 10px;
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 10px;
+  border: 2px solid #05c1f5;
+  position: relative;
+  top: 5px;
+}
+
+.wrong-tries {
+  position: relative;
+  top: 1px;
+}
+
+/* win and lose */
+.result {
+  position: absolute;
+  width: 150px;
+  height: 100px;
+  background-color: #ddd;
+  left: 50%;
+  top: 50%;
+  text-align: center;
+  z-index: 9;
+  transform: translate(-50%, -50%);
+}
+
+.win {
+  color: green;
+}
+
+.lose {
+  color: red;
+}
+
+.hide {
+  visibility: hidden;
+}
+
+.try-again {
+  background-color: #333;
+  border: none;
+  color: #05c1f5;
+  padding: 4px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+/* cards section */
+
+.cards-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.card {
+  flex: 1 1 120px;
+  height: 120px;
+  position: relative;
+  transition: transform 0.5s;
+  transform-style: preserve-3d;
+  border: 2px solid #05c1f5;
+  cursor: pointer;
+}
+
+.face {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  backface-visibility: hidden;
+}
+
+.front {
+  background-color: #333;
+  font-size: 100px;
+}
+
+.back {
+  transform: rotateY(180deg);
+}
+
+.back img {
+  width: 100%;
+  height: 100%;
+}
+
+.card.clicked,
+.card .matched {
+  transform: rotateY(180deg);
+}
+
+.prevent-click {
+  pointer-events: none;
+}
+
+@media (min-width: 470px) and (max-width: 620px) {
+  .container {
+    width: 450px;
+  }
+
+  .card {
+    flex-basis: 100px;
+    height: 100px;
+  }
+}
+
+@media (max-width: 469px) {
+  .container {
+    width: 280px;
+  }
+
+  .info-container {
+    font-size: 12px;
+  }
+
+  .card {
+    flex-basis: 100px;
+    height: 100px;
+  }
+}
