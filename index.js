@@ -30,7 +30,8 @@ let interval;
 
 startGame.addEventListener("click", () => {
   intro.remove();
-  playerName.textContent = prompt("please enter your name") || "Unknown";
+  const name = prompt("please enter your name") || "Unknown";
+  playerName.textContent = name.slice(0, 11);
   startTimer(durationMin, durationSec);
 });
 
