@@ -172,6 +172,8 @@ function resetGame() {
   durationSec = 0;
   startTimer(durationMin, durationSec);
 
-  // hide the result box
+  // hide the result box 
+  result.classList.remove("win");
+  result.classList.remove("lose");
   result.classList.add("hide");
 }
