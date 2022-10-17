@@ -25,15 +25,37 @@ let cardData = [];
 // save card elements
 let cardElements = [];
 
+// for enable click one time
+let enable = true;
+
 // assign interval, so it can be accessible
 let interval;
 
 startGame.addEventListener("click", () => {
   intro.remove();
-  const name = prompt("please enter your name") || "Unknown";
-  playerName.textContent = name.slice(0, 11);
-  startTimer(durationMin, durationSec);
+  playerName.textContent = prompt("please enter your name") || "Unknown";
+  showCards();
 });
+
+// show cards for three seconds
+function showCards() {
+  cards.forEach((card) => {
+    card.classList.add("clicked");
+    card.classList.add("prevenet-click");
+  });
+
+  setTimeout(() => {
+    cards.forEach((card) => {
+      card.classList.remove("clicked");
+      card.classList.remove("prevenet-click");
+    });
+    // enable click on card one time
+    if (enable) {
+      enableClick();
+    }
+    startTimer(durationMin, durationSec);
+  }, 3000);
+}
 
 // randomize cards
 function randomizeCards() {
@@ -76,33 +98,38 @@ function startTimer(mints, scnds) {
 }
 
 // click event for all cards
-cards.forEach((card) => {
-  card.addEventListener("click", function () {
-    this.classList.add("clicked");
+function enableClick() {
+  // don't enable click again
+  enable = false;
 
-    // save the data of the card in cardData
-    cardData.push(this.dataset.animal);
+  cards.forEach((card) => {
+    card.addEventListener("click", function () {
+      this.classList.add("clicked");
 
-    // save the clicked element
-    cardElements.push(this);
+      // save the data of the card in cardData
+      cardData.push(this.dataset.animal);
 
-    // increment clickCounts
-    clickCounts++;
+      // save the clicked element
+      cardElements.push(this);
 
-    // if there is two clicks, check if they match
-    if (clickCounts === 2) {
-      // prevent clicking on all cards for two seconds
-      preventClick();
+      // increment clickCounts
+      clickCounts++;
 
-      // wait two seconds before checking the match, so that the card can be showed
-      setTimeout(() => {
-        allowClick();
-        isMatched();
-        isFinished();
-      }, 1000);
-    }
+      // if there is two clicks, check if they match
+      if (clickCounts === 2) {
+        // prevent clicking on all cards for two seconds
+        preventClick();
+
+        // wait two seconds before checking the match, so that the card can be showed
+        setTimeout(() => {
+          allowClick();
+          isMatched();
+          isFinished();
+        }, 1000);
+      }
+    });
   });
-});
+}
 
 // check for card matching
 function isMatched() {
@@ -140,7 +167,7 @@ function allowClick() {
 
 function isFinished() {
   if (matched === cards.length / 2) {
-    // show the result in the result box
+    // show the result in a result box
     message.textContent = `You Win`;
     result.classList.add("win");
     result.classList.remove("hide");
@@ -171,10 +198,10 @@ function resetGame() {
   // restart the timer
   durationMin = 1;
   durationSec = 0;
-  startTimer(durationMin, durationSec);
 
-  // hide the result box 
-  result.classList.remove("win");
-  result.classList.remove("lose");
+  // hide the result box
   result.classList.add("hide");
+
+  // show cards for three seconds
+  showCards();
 }
