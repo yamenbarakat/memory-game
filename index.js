@@ -139,7 +139,7 @@ function allowClick() {
 
 function isFinished() {
   if (matched === cards.length / 2) {
-    // show the result in a result box
+    // show the result in the result box
     message.textContent = `You Win`;
     result.classList.add("win");
     result.classList.remove("hide");
