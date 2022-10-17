@@ -45,16 +45,20 @@ function showCards() {
   });
 
   setTimeout(() => {
-    cards.forEach((card) => {
-      card.classList.remove("clicked");
-      card.classList.remove("prevenet-click");
-    });
+    hideCards();
     // enable click on card one time
     if (enable) {
       enableClick();
     }
     startTimer(durationMin, durationSec);
   }, 3000);
+}
+
+function hideCards() {
+  cards.forEach((card) => {
+    card.classList.remove("clicked");
+    card.classList.remove("prevenet-click");
+  });
 }
 
 // randomize cards
@@ -192,9 +196,6 @@ function resetGame() {
   cardElements = [];
   wrongTries.textContent = 0;
 
-  // randomize the cards
-  randomizeCards();
-
   // restart the timer
   durationMin = 1;
   durationSec = 0;
@@ -202,6 +203,14 @@ function resetGame() {
   // hide the result box
   result.classList.add("hide");
 
-  // show cards for three seconds
-  showCards();
+  // hide cards
+  hideCards();
+
+  // randomize the cards
+  randomizeCards();
+
+  // wait two seconds then show cards
+  setTimeout(() => {
+    showCards();
+  }, 500);
 }
